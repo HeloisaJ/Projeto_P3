@@ -4,11 +4,11 @@ public class Quarto{
 
     private boolean tipo; // false - Solteiro, true - Casal
     private boolean disponivel;
-    private boolean extras;
+    private boolean extras; // Com uma cama a mais ou não
 
     public Quarto(){
         this.tipo = randomizador();
-        this.extras = randomizador();
+        this.disponivel = true;
     }
 
     public boolean randomizador(){

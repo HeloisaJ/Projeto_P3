@@ -8,20 +8,25 @@ public class SistemaDeQuartos {
     }
 
     public int buscarQuarto(Quarto modelo){
-        if(numeroQuartosOcupados == 36){
+        int tam = quantQuartos.length;
+        if(this.numeroQuartosOcupados == tam){ // Ver se todos os quartos estão ocupados
             return -1;
         }
         
         int i, j = 0;
-        for(i = 0; i < quantQuartos.length; i++){
-            for(j = 0; j < quantQuartos.length; j++){
+        for(i = 0; i < tam; i++){
+            for(j = 0; j < tam; j++){ // Procura uma cama com base no modelo que o usuário deseja
                 if(modelo.equals(quantQuartos[i][j]) && quantQuartos[i][j].getDisponivel()){
                     break;
                 }
             }
         }    
 
-        int chave = calculoDaChave(i, j);
+        if(i == tam && j == tam){ // Não encontrou um quarto daquele estilo do qual o usuário deseja
+            return -2;
+        }
+
+        int chave = calculoDaChave(i + 1, j + 1); // Criação da chave do quarto
         quantQuartos[i][j].setDisponivel(false);
         numeroQuartosOcupados++;
 
@@ -30,5 +35,9 @@ public class SistemaDeQuartos {
 
     private int calculoDaChave(int i, int j){
         return i * 100 + j;
+    }
+
+    public int getNumeroQuartosOcupados(){
+        return this.numeroQuartosOcupados;
     }
 }
