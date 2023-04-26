@@ -1,4 +1,4 @@
-public class  Pessoa{
+public class Pessoa{
     private String nome;
     private String cpf;
     private String celular;
@@ -10,6 +10,9 @@ public class  Pessoa{
         this.celular = celular;
     }
 
+    public Pessoa(String nome){
+        this.nome = nome;
+    }
 
     public String getNome() {
         return nome;

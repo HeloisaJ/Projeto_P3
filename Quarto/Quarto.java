@@ -1,4 +1,4 @@
-package Pessoa.Quarto;
+package Quarto;
 import java.util.Random;
 
 public class Quarto{
