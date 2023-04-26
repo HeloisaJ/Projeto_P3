@@ -1,3 +1,4 @@
+package Pessoa.Quarto;
 public class SistemaDeQuartos {
     
     private Quarto quantQuartos [][];
