@@ -1,6 +1,7 @@
 public class Funcionario extends Pessoa{
+
     private String turno;
-    String senha;
+    private String senha;
     
     public Funcionario(String nome, String cpf, String celular, String turno, String senha){
         super(nome, cpf, celular);
@@ -21,12 +22,11 @@ public class Funcionario extends Pessoa{
         return this.turno;
     }
 
-    public void setTurno(String novoTurno){
-        this.turno = novoTurno;
-    }
-
     @Override
     public boolean equals(Object n){
+        if(this == n){
+            return true;
+        }
         if(n instanceof Funcionario){
             Funcionario x = (Funcionario) n;
             if(this.getNome() == x.getNome() && this.senha == x.senha){
