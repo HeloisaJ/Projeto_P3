@@ -28,7 +28,7 @@ public class Main {
         char escolha2;
         do{
             menuInicial();
-            escolha=in.next().charAt(0);
+            escolha=in.next().charAt(0); in.nextLine();
             switch(escolha){
                 case '1':
                     System.out.println("Interface de login");
@@ -39,7 +39,7 @@ public class Main {
                     senha=in.nextLine();
                     
                     do{
-                        escolha2=in.next().charAt(0);
+                        escolha2=in.next().charAt(0);in.nextLine();
                         System.out.println("Interface do funcionário");
                         menuAposLogin();
 
@@ -49,7 +49,7 @@ public class Main {
                                 sq=new SistemaDeQuartos();
                                 System.out.println("1: casal");
                                 System.out.println("2: solteiro");
-                                tipoquarto=in.next().charAt(0);
+                                tipoquarto=in.next().charAt(0);in.nextLine();
                                 
                                 if(tipoquarto=='1'){
                                     tipoCama=true;
@@ -77,9 +77,9 @@ public class Main {
                                     System.out.println("Número de Celular:");
                                     celular=in.nextLine();
                                     System.out.println("Quantidade de dias de hospedagem:");
-                                    diasDeHospedagem=in.nextInt();
+                                    diasDeHospedagem=in.nextInt();in.nextLine();
                                     System.out.println("Dia do Check-In:");
-                                    diaDoCheckIn=in.nextInt();
+                                    diaDoCheckIn=in.nextInt();in.nextLine();
                                     if(tipoCama==true){
                                         valorInicial=150;
                                     
