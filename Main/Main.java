@@ -61,7 +61,7 @@ public class Main {
                                 result=sq.buscarQuarto(q);
         
                                 if(result ==-1){
-                                    System.out.println("Não temos quartos do tipo escolhido disponivel no momento");
+                                    System.out.println("Não temos quartos do tipo escolhido disponível no momento");
                                 }
                                 else if(result == -2){
                                     System.out.println("quarto não encontrado");
@@ -87,13 +87,12 @@ public class Main {
                                     else{
                                         valorInicial=100;
                                     }
-                                    cl=new Cliente(nome, cpf, celular, diasDeHospedagem, diaDoCheckIn, tipoCama, valorInicial, chave, extras);
                                     System.out.println("Cliente Registrado com Sucesso");
                                 }
                             break;
                             
                             case '2':
-                                System.out.println("Digite dados do cliente para  Realização do Check-In");
+                                System.out.println("Digite dados do cliente para  realização do Check-In");
                                 System.out.println("Nome:");
                                 nome=in.nextLine();
                                 System.out.println("CPF:");
@@ -102,7 +101,7 @@ public class Main {
                             break;
 
                             case '3':
-                                System.out.println("Digite dados do cliente para Realização do CheckOut");
+                                System.out.println("Digite dados do cliente para realização do Check-Out");
                                 System.out.println("Nome:");
                                 nome=in.nextLine();
                                 System.out.println("CPF:");
