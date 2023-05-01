@@ -21,14 +21,14 @@ public class Cliente extends Pessoa {
         this.diaDoCheckOut = diaDoCheckOut();
         this.valorInicial = valorInicial;
         this.tipoCama = tipoCama;      
-        this.chave = this.chave;
-        this.situacao = this.situacao.RESERVA;
+        this.chave = chave;
+        this.situacao = SituacaoEnum.RESERVA;
         this.extras = extras;
         this.valorDosExtras = 300.0;
     }
 
-    public Cliente(String nome, String cpf, String celular) {
-        super(nome, cpf, celular);
+    public Cliente(String nome, String cpf) {
+        super(nome, cpf);
     }
 
     public int getDiasDeHospedagem(){
