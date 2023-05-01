@@ -31,7 +31,8 @@ public class Main {
             escolha=in.next().charAt(0);
             switch(escolha){
                 case '1':
-                    System.out.println("Tela de login, informe dados funcionario");
+                    System.out.println("Interface de login");
+                    System.out.println("Funcionário digite as seguintes informações para prosseguir");
                     System.out.println("Nome:");
                     nome=in.nextLine();
                     System.out.println("Senha:");
@@ -39,15 +40,15 @@ public class Main {
                     
                     do{
                         escolha2=in.next().charAt(0);
-                        System.out.println("tela do funcionario");
+                        System.out.println("Interface do funcionário");
                         menuAposLogin();
 
                         switch(escolha2){
                             case '1':
-                                System.out.println("qual tipo de quarto do cliente:");
+                                System.out.println("qual tipo de quarto deseja o cliente:");
                                 sq=new SistemaDeQuartos();
-                                System.out.println("1 casal");
-                                System.out.println("2 solteiro");
+                                System.out.println("1: casal");
+                                System.out.println("2: solteiro");
                                 tipoquarto=in.next().charAt(0);
                                 
                                 if(tipoquarto=='1'){
@@ -60,24 +61,24 @@ public class Main {
                                 result=sq.buscarQuarto(q);
         
                                 if(result ==-1){
-                                    System.out.println("Não temos quartos do tipo escolhido disponiveis no momento");
+                                    System.out.println("Não temos quartos do tipo escolhido disponivel no momento");
                                 }
                                 else if(result == -2){
                                     System.out.println("quarto não encontrado");
                                 }
                                 else{
-                                    System.out.println("Achamos o quarto de chave "+result);
-                                    System.out.println("agora complete os dados do cliente");
+                                    System.out.println("Quarto encontrado, numero do quarto é "+result);
+                                    System.out.println("complete os dados do cliente para finalizar reserva");
                                     chave=result;
-                                    System.out.println("nome :");
+                                    System.out.println("Nome:");
                                     nome=in.nextLine();
-                                    System.out.println("cpf :");
+                                    System.out.println("CPF:");
                                     cpf=in.nextLine();
-                                    System.out.println("Celular :");
+                                    System.out.println("Número de Celular:");
                                     celular=in.nextLine();
-                                    System.out.println("dias de hospedagem :");
+                                    System.out.println("Quantidade de dias de hospedagem:");
                                     diasDeHospedagem=in.nextInt();
-                                    System.out.println("Dia de chegada:");
+                                    System.out.println("Dia do Check-In:");
                                     diaDoCheckIn=in.nextInt();
                                     if(tipoCama==true){
                                         valorInicial=150;
@@ -87,12 +88,12 @@ public class Main {
                                         valorInicial=100;
                                     }
                                     cl=new Cliente(nome, cpf, celular, diasDeHospedagem, diaDoCheckIn, tipoCama, valorInicial, chave, extras);
-                                    System.out.println("cliente registrado");
+                                    System.out.println("Cliente Registrado com Sucesso");
                                 }
                             break;
                             
                             case '2':
-                                System.out.println("Digite dados do cliente para CheckIn");
+                                System.out.println("Digite dados do cliente para  Realização do Check-In");
                                 System.out.println("Nome:");
                                 nome=in.nextLine();
                                 System.out.println("CPF:");
@@ -101,7 +102,7 @@ public class Main {
                             break;
 
                             case '3':
-                                System.out.println("Digite dados do cliente para CheckIn");
+                                System.out.println("Digite dados do cliente para Realização do CheckOut");
                                 System.out.println("Nome:");
                                 nome=in.nextLine();
                                 System.out.println("CPF:");
@@ -110,22 +111,19 @@ public class Main {
                             break;
 
                             case '4':
-                                exibirClientesParaCheckInHoje();
 
                             break;
                             
                             case '5':
-                                exibirClientesHospedados();
 
                             break;
 
                             case '6':
-                                exibirClientesParaCheckOutHoje();
 
                             break;
 
                             default:
-                            System.out.println("opção invalida, tente novamente");
+                            System.out.println("Opção Inválida, Tente Novamente");
 
                             
 
@@ -148,7 +146,7 @@ public class Main {
                 // remover funcionario
 
                 default:
-                    System.out.println("opcão invalida");
+                    System.out.println("Opção Inválida, Tente Novamente");
             }
         }while(escolha !=4);   
     }
@@ -156,35 +154,21 @@ public class Main {
 
 
     public static void menuInicial(){
-        System.out.println("escolha a opção desejada");
-        System.out.println("1 para fazer login de funcionario");
-        System.out.println("2 adicionar funcionario");
-        System.out.println("3 remover funcionario");
-        System.out.println("4 finilizar progama");
+        System.out.println("Digite a opção desejada");
+        System.out.println("1 para fazer login de funcionário");
+        System.out.println("2 adicionar novo funcionário");
+        System.out.println("3 remover funcionário");
+        System.out.println("4 finalizar programa(Não finalizar sem backup)");
     }
     public static void menuAposLogin(){
-        System.out.println("digite a opção desejada");
-        System.out.println("1 reserva de quarto");
-        System.out.println("2 fazer checkIn");
-        System.out.println("3 fazer checkOut");
-        System.out.println("4 exibir Clientes Para CheckIn Hoje ");
-        System.out.println("5 exibir Clientes Para CheckOut Hoje");
-        System.out.println("6 exibir Todos Clientes");
-        System.out.println("7 voltar para tela inicial");
+        System.out.println("Digite a opção desejada");
+        System.out.println("1: Reservar quarto");
+        System.out.println("2: Fazer Check-in");
+        System.out.println("3: Fazer Checkout");
+        System.out.println("4: Exibir Clientes Para Check-In de Hoje ");
+        System.out.println("5: Exibir Clientes Para CheckOut de Hoje");
+        System.out.println("6: Exibir Todos Clientes");
+        System.out.println("7: Voltar para tela inicial");
 
-    }
-    public static void exibirClientesParaCheckInHoje(){
-
-    }
-    public static void exibirClientesHospedados(){
-
-    }
-
-    public static void exibirClientesParaCheckOutHoje(){
-
-    }
-    public static void exibirTodosClientes(){
-
-    }
-    
+    }  
 }
