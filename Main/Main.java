@@ -92,19 +92,40 @@ public class Main {
                             break;
                             
                             case '2':
-                            exibirClientesParaCheckInHoje();
-
+                                System.out.println("Digite dados do cliente para CheckIn");
+                                System.out.println("Nome:");
+                                nome=in.nextLine();
+                                System.out.println("CPF:");
+                                cpf=in.nextLine();
+                                cl=new Cliente(nome, cpf);
                             break;
-                            
-                            case '3':
-                            exibirClientesHospedados();
 
+                            case '3':
+                                System.out.println("Digite dados do cliente para CheckIn");
+                                System.out.println("Nome:");
+                                nome=in.nextLine();
+                                System.out.println("CPF:");
+                                cpf=in.nextLine();
+                                cl=new Cliente(nome, cpf);
                             break;
 
                             case '4':
-                            exibirClientesParaCheckOutHoje();
+                                exibirClientesParaCheckInHoje();
 
                             break;
+                            
+                            case '5':
+                                exibirClientesHospedados();
+
+                            break;
+
+                            case '6':
+                                exibirClientesParaCheckOutHoje();
+
+                            break;
+
+                            default:
+                            System.out.println("opção invalida, tente novamente");
 
                             
 
@@ -127,7 +148,7 @@ public class Main {
                 // remover funcionario
 
                 default:
-                System.out.println("opcão invalida");
+                    System.out.println("opcão invalida");
             }
         }while(escolha !=4);   
     }
@@ -144,10 +165,12 @@ public class Main {
     public static void menuAposLogin(){
         System.out.println("digite a opção desejada");
         System.out.println("1 reserva de quarto");
-        System.out.println("2 exibir Clientes Para CheckIn Hoje ");
-        System.out.println("3 exibir Clientes Para CheckOut Hoje");
-        System.out.println("4 exibir Todos Clientes");
-        System.out.println("5 voltar para tela inicial");
+        System.out.println("2 fazer checkIn");
+        System.out.println("3 fazer checkOut");
+        System.out.println("4 exibir Clientes Para CheckIn Hoje ");
+        System.out.println("5 exibir Clientes Para CheckOut Hoje");
+        System.out.println("6 exibir Todos Clientes");
+        System.out.println("7 voltar para tela inicial");
 
     }
     public static void exibirClientesParaCheckInHoje(){

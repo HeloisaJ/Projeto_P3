@@ -1,3 +1,6 @@
+package TipoPessoa;
+
+
 import java.util.Calendar;
 
 public class Cliente extends Pessoa {
