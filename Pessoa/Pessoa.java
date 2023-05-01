@@ -10,6 +10,10 @@ public abstract class Pessoa{
         this.cpf = cpf;
         this.celular = celular;
     }
+    public Pessoa(String nome, String cpf){
+        this.nome = nome;
+        this.cpf = cpf;
+    }
 
     public Pessoa(String nome){
         this.nome = nome;

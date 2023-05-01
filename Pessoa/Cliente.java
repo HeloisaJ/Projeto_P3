@@ -1,25 +1,50 @@
-public class Cliente {
-    private int diasDeHospedagem;
-    private int numeroPessoas;
-    private int nCamaCasais;
-    //limite cama casais 1
-    private int nCamaSolteiros;
-    private double preco;
-    private double valorPorPessoa;
-    private double valorQuarto;
-   
-    public Cliente(int diasDeHospedagem, int numeroPessoas, int nCamaCasais, int nCamaSolteiros, double preco) {
-        this.diasDeHospedagem = diasDeHospedagem;
-        this.numeroPessoas = numeroPessoas;
-        this.nCamaCasais = nCamaCasais;
-        this.nCamaSolteiros = nCamaSolteiros;
-        this.preco = preco;
-        this.valorPorPessoa=50;
-        this.valorQuarto=100;
-    } 
+import java.util.Calendar;
 
-    public double precoQuarto(){
-        return  diasDeHospedagem*(valorQuarto+(valorPorPessoa*numeroPessoas));
+public class Cliente extends Pessoa {
+    private int diasDeHospedagem;
+    private int diaDoCheckIn;
+    private int diaDoCheckOut;
+    private boolean tipoCama;//true=casal, false=solteiro
+    private double valorInicial;
+    private int chave;
+    private boolean extras;//sim ou não
+    private SituacaoEnum situacao;
+    private double valorDosExtras;
+   
+
+
+    public Cliente(String nome, String cpf, String celular, int diasDeHospedagem, int diaDoCheckIn,
+        boolean tipoCama, double valorInicial , int chave, boolean extras) {
+        super(nome, cpf, celular);
+        this.diasDeHospedagem = diasDeHospedagem;
+        this.diaDoCheckIn = diaDoCheckIn;       
+        this.diaDoCheckOut = diaDoCheckOut();
+        this.valorInicial = valorInicial;
+        this.tipoCama = tipoCama;      
+        this.chave = this.chave;
+        this.situacao = this.situacao.RESERVA;
+        this.extras = extras;
+        this.valorDosExtras = 300.0;
+    }
+
+    public Cliente(String nome, String cpf, String celular) {
+        super(nome, cpf, celular);
+    }
+
+    public int getDiasDeHospedagem(){
+        return this.diasDeHospedagem;
+    }
+
+    public int getDiaCheckIn(){
+        return this.diaDoCheckIn;
+    }
+
+    public int diaDoCheckOut(){
+        return this.diaDoCheckIn +  this.diasDeHospedagem;
+    }
+
+    public void setSituacao(){
+        this.situacao = SituacaoEnum.HOSPEDE;
     }
 
     
