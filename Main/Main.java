@@ -3,7 +3,9 @@ import java.util.Scanner;
 
 import Quarto.Quarto;
 import Quarto.SistemaDeQuartos;
+import Sistema.SistemaRecepcionista;
 import TipoPessoa.Cliente;
+
 public class Main {
     public static void main(String[] args) {
         Scanner in= new Scanner (System.in);
@@ -15,7 +17,7 @@ public class Main {
 
         Cliente cl;
         char tipoquarto;
-        SistemaDeQuartos sq;
+        SistemaDeQuartos sq = new SistemaDeQuartos();
         Quarto q;
         int diasDeHospedagem;
         int diaDoCheckIn;
@@ -24,6 +26,7 @@ public class Main {
         int chave;
         boolean extras=false;
         int result;
+        SistemaRecepcionista sistema = new SistemaRecepcionista();
 
         char escolha2;
         do{
@@ -39,14 +42,13 @@ public class Main {
                     senha=in.nextLine();
                     
                     do{
-                        escolha2=in.next().charAt(0);in.nextLine();
                         System.out.println("Interface do funcionário");
                         menuAposLogin();
+                        escolha2=in.next().charAt(0);in.nextLine();
 
                         switch(escolha2){
                             case '1':
                                 System.out.println("qual tipo de quarto deseja o cliente:");
-                                sq=new SistemaDeQuartos();
                                 System.out.println("1: casal");
                                 System.out.println("2: solteiro");
                                 tipoquarto=in.next().charAt(0);in.nextLine();
@@ -87,7 +89,8 @@ public class Main {
                                     else{
                                         valorInicial=100;
                                     }
-                                    System.out.println("Cliente Registrado com Sucesso");
+                                    
+                                    sistema.reserva(nome, cpf, celular, diasDeHospedagem, diaDoCheckIn, tipoCama, valorInicial, chave, extras);
                                 }
                             break;
                             
@@ -98,6 +101,7 @@ public class Main {
                                 System.out.println("CPF:");
                                 cpf=in.nextLine();
                                 cl=new Cliente(nome, cpf);
+                                sistema.checkIn(cl);
                             break;
 
                             case '3':
@@ -107,31 +111,40 @@ public class Main {
                                 System.out.println("CPF:");
                                 cpf=in.nextLine();
                                 cl=new Cliente(nome, cpf);
+                                sistema.checkOut(cl);
                             break;
 
                             case '4':
-
+                                sistema.exibirClientesParaCheckInHoje();
                             break;
                             
                             case '5':
-
+                                sistema.exibirClientesParaCheckOutHoje();
                             break;
 
                             case '6':
+                                sistema.exibirClientesHospedados();
+                            break;
 
+                            case '7':
+                                sistema.exibirTodosOsClientes();
+                            break;
+
+                            case '8':
+                                System.out.println("Tchau!");
                             break;
 
                             default:
-                            System.out.println("Opção Inválida, Tente Novamente");
-
+                                System.out.println("Opção Inválida, Tente Novamente");
+                            break;
                             
 
 
 
-                    }
+                        }
 
 
-                    }while(escolha2!=5);
+                    }while(escolha2!=8);
                 break;
 
 
@@ -143,9 +156,11 @@ public class Main {
                 case '3':
                 //acessar classe admin para da permisão 
                 // remover funcionario
+                break;
 
                 default:
                     System.out.println("Opção Inválida, Tente Novamente");
+                break;
             }
         }while(escolha !=4);   
     }
@@ -166,8 +181,9 @@ public class Main {
         System.out.println("3: Fazer Checkout");
         System.out.println("4: Exibir Clientes Para Check-In de Hoje ");
         System.out.println("5: Exibir Clientes Para CheckOut de Hoje");
-        System.out.println("6: Exibir Todos Clientes");
-        System.out.println("7: Voltar para tela inicial");
+        System.out.println("6: Exibir os Clientes Hospedados");
+        System.out.println("7: Exibir Todos Clientes");
+        System.out.println("8: Voltar para tela inicial");
 
     }  
 }

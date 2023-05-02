@@ -1,10 +1,10 @@
 package TipoPessoa;
+
 public abstract class Pessoa{
     
-    private String nome;
-    private String cpf;
-    private String celular;
-    
+    protected String nome;
+    protected String cpf;
+    protected String celular;
     
     public Pessoa(String nome, String cpf, String celular) {
         this.nome = nome;

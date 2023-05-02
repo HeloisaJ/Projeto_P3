@@ -1,3 +1,5 @@
+import TipoPessoa.Pessoa;
+
 public class Funcionario extends Pessoa{
 
     private String turno;

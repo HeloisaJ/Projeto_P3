@@ -50,6 +50,32 @@ public class Cliente extends Pessoa {
         this.situacao = SituacaoEnum.HOSPEDE;
     }
 
-    
+    public int getDiaDoCheckOut(){
+        return this.diaDoCheckOut;
+    }
+
+    @Override
+    public boolean equals(Object n){
+        if(this == n){
+            return true;
+        }
+        if(n instanceof Cliente){
+            Cliente x = (Cliente) n;
+            if(this.nome.equals(x.nome) && this.cpf.equals(x.cpf)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
+    @Override
+    public String toString(){
+        return "Cliente: " + this.nome + ", Quarto: " + this.chave + ", Dia do check-in: " + this.diaDoCheckIn + ", Dia do check-out: " + this.diaDoCheckOut + ", Situação: " + this.situacao;
+    }
     
 }
