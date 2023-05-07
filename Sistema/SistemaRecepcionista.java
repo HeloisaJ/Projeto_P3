@@ -1,5 +1,6 @@
 package Sistema;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 
 import TipoPessoa.Cliente;
@@ -8,14 +9,14 @@ public class SistemaRecepcionista {
     
     private LinkedList<Cliente> clientesParaCheckIn;
     private LinkedList<Cliente> clientesHospedados;
-    private final int HOJE = 5; // Depois retirar
+    private Calendar hoje;
 
     public SistemaRecepcionista(){
         this.clientesParaCheckIn = new LinkedList<Cliente>();
         this.clientesHospedados = new LinkedList<Cliente>();
     }
 
-    public void reserva(String nome, String cpf, String celular, int diasHospedagem, int diaDoCheckIn, boolean tipoCama, double valorInicial, int chave, boolean extras){
+    public void reserva(String nome, String cpf, String celular, int diasHospedagem, Calendar diaDoCheckIn, boolean tipoCama, double valorInicial, int chave, boolean extras){
         Cliente novo = new Cliente(nome, cpf, celular, diasHospedagem, diaDoCheckIn, tipoCama, valorInicial, chave, extras);
         this.clientesParaCheckIn.addLast(novo);
         System.out.println("Novo cliente adicionado com sucesso !");
@@ -26,7 +27,7 @@ public class SistemaRecepcionista {
         if(posicao == -1){
             System.out.println("Cliente não encontrado, tente novamente !");
         }
-        else if(this.clientesParaCheckIn.get(posicao).getDiaCheckIn() != HOJE){
+        else if(!compareData(this.clientesParaCheckIn.get(posicao).getDiaCheckIn())){
             System.out.println("Hoje não é o dia do check in deste cliente !");
         }
         else{
@@ -43,13 +44,18 @@ public class SistemaRecepcionista {
         if(posicao == -1){
             System.out.println("Cliente não encontrado, tente novamente !");
         }
-        else if(this.clientesHospedados.get(posicao).getDiaDoCheckOut() != HOJE){
+        else if(!compareData(this.clientesHospedados.get(posicao).getDiaDoCheckOut())){
             System.out.println("Hoje não é o dia do check out deste cliente !");
         }
         else{
             this.clientesHospedados.remove(this.clientesHospedados.get(posicao));
             System.out.println("Check out do cliente realizado com sucesso !");
         }
+    }
+
+    private boolean compareData(Calendar data){
+        this.hoje = Calendar.getInstance();
+        return data.get(Calendar.YEAR) == this.hoje.get(Calendar.YEAR) && data.get(Calendar.MONTH) == this.hoje.get(Calendar.MONTH) && data.get(Calendar.DAY_OF_MONTH) == this.hoje.get(Calendar.DAY_OF_MONTH);
     }
 
     private int buscarCliente(Cliente n, LinkedList<Cliente> lista){
@@ -68,7 +74,7 @@ public class SistemaRecepcionista {
         else{
             boolean vazio = true;
             for(int i = 0; i < this.clientesParaCheckIn.size(); i++){ 
-                if(this.clientesParaCheckIn.get(i).getDiaCheckIn() == HOJE){ //Colocar depois a data real
+                if(compareData(this.clientesParaCheckIn.get(i).getDiaCheckIn())){ 
                     System.out.println(this.clientesParaCheckIn.get(i));
                     vazio = false;
                 }
@@ -96,7 +102,7 @@ public class SistemaRecepcionista {
         else{
             boolean vazio = true;
             for(int i = 0; i < this.clientesHospedados.size(); i++){
-                if(this.clientesHospedados.get(i).getDiaDoCheckOut() == HOJE){ //Colocar depois a data real
+                if(compareData(this.clientesHospedados.get(i).getDiaDoCheckOut())){ 
                     System.out.println(this.clientesHospedados.get(i));
                     vazio = false;
                 }

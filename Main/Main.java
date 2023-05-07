@@ -1,4 +1,6 @@
 package Main;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 import Quarto.Quarto;
@@ -20,7 +22,9 @@ public class Main {
         SistemaDeQuartos sq = new SistemaDeQuartos();
         Quarto q;
         int diasDeHospedagem;
-        int diaDoCheckIn;
+        int dia, mes, ano;
+        GregorianCalendar padrao;
+        Calendar diaDoCheckIn;
         boolean tipoCama;
         double valorInicial;
         int chave;
@@ -32,6 +36,8 @@ public class Main {
         do{
             menuInicial();
             escolha=in.next().charAt(0); in.nextLine();
+            System.out.println();
+
             switch(escolha){
                 case '1':
                     System.out.println("Interface de login");
@@ -45,6 +51,7 @@ public class Main {
                         System.out.println("Interface do funcionário");
                         menuAposLogin();
                         escolha2=in.next().charAt(0);in.nextLine();
+                        System.out.println();
 
                         switch(escolha2){
                             case '1':
@@ -80,8 +87,51 @@ public class Main {
                                     celular=in.nextLine();
                                     System.out.println("Quantidade de dias de hospedagem:");
                                     diasDeHospedagem=in.nextInt();in.nextLine();
-                                    System.out.println("Dia do Check-In:");
-                                    diaDoCheckIn=in.nextInt();in.nextLine();
+                                    System.out.println("Data do Check-In:");
+                                    System.out.println("Ano: ");
+                                    ano = in.nextInt(); in.nextLine(); 
+
+                                    padrao = new GregorianCalendar();
+                                    while(ano < padrao.get(Calendar.YEAR)){
+                                        System.out.println("Ano inválido! Digite uma data que seja maior ou igual ao ano atual: ");
+                                        ano = in.nextInt(); in.nextLine(); 
+                                    }
+
+                                    System.out.println("Mês: ");
+                                    mes = in.nextInt(); in.nextLine();
+
+                                    while((mes < 1 || mes > 12) || (mes < (padrao.get(Calendar.MONTH) + 1) && ano == padrao.get(Calendar.YEAR))){
+                                        if(mes < 1 || mes > 12){
+                                            System.out.println("Mês inválido! Digite um número entre 1 e 12: ");
+                                        }
+                                        else{
+                                            System.out.println("Mês inválido! Esse mês já passou, digite um outro mês: ");
+                                        }
+                                        mes = in.nextInt(); in.nextLine();
+                                    }
+
+                                    System.out.println("Dia: ");
+                                    dia = in.nextInt(); in.nextLine();
+
+                                    while((dia < 1 || dia > 31) || (mes == 2 && dia > 29) || (mes == 2 && dia == 29 && !padrao.isLeapYear(padrao.get(Calendar.YEAR))) || (dia < padrao.get(Calendar.DAY_OF_MONTH) && mes == (padrao.get(Calendar.MONTH) + 1) && ano == padrao.get(Calendar.YEAR))){
+                                        if(dia < 1 || dia > 31){
+                                            System.out.println("Dia inválido! Digite um número entre 1 e 31: ");
+                                        }
+                                        else if(mes == 2 && dia > 29){
+                                            System.out.println("Dia inválido! Como o mês é fevereiro, digite um número menor que 30 para o dia: ");
+                                        }
+                                        else if(mes == 2 && dia == 29 && !padrao.isLeapYear(padrao.get(Calendar.YEAR))){
+                                            System.out.println("Dia inválido! Como este ano não é bissexto, não existe dia 29 de fevereiro, digite um número menor que 29: ");
+                                        }
+                                        else{
+                                            System.out.println("Dia inválido! Esse dia já passou, digite um outro dia: ");
+                                        }
+                                        dia = in.nextInt(); in.nextLine();
+                                    }
+
+                                    mes--;
+                                    diaDoCheckIn = new GregorianCalendar(ano, mes, dia);
+
                                     if(tipoCama==true){
                                         valorInicial=150;
                                     
@@ -91,6 +141,7 @@ public class Main {
                                     }
                                     
                                     sistema.reserva(nome, cpf, celular, diasDeHospedagem, diaDoCheckIn, tipoCama, valorInicial, chave, extras);
+                                    System.out.println();
                                 }
                             break;
                             
@@ -102,6 +153,7 @@ public class Main {
                                 cpf=in.nextLine();
                                 cl=new Cliente(nome, cpf);
                                 sistema.checkIn(cl);
+                                System.out.println();
                             break;
 
                             case '3':
@@ -112,30 +164,37 @@ public class Main {
                                 cpf=in.nextLine();
                                 cl=new Cliente(nome, cpf);
                                 sistema.checkOut(cl);
+                                System.out.println();
                             break;
 
                             case '4':
                                 sistema.exibirClientesParaCheckInHoje();
+                                System.out.println();
                             break;
                             
                             case '5':
                                 sistema.exibirClientesParaCheckOutHoje();
+                                System.out.println();
                             break;
 
                             case '6':
                                 sistema.exibirClientesHospedados();
+                                System.out.println();
                             break;
 
                             case '7':
                                 sistema.exibirTodosOsClientes();
+                                System.out.println();
                             break;
 
                             case '8':
                                 System.out.println("Tchau!");
+                                System.out.println();
                             break;
 
                             default:
                                 System.out.println("Opção Inválida, Tente Novamente");
+                                System.out.println();
                             break;
                             
 
@@ -144,31 +203,39 @@ public class Main {
                         }
 
 
-                    }while(escolha2!=8);
+                    }while(escolha2!='8');
                 break;
 
 
                 case '2':
                 //acesar classe admin para da permisão 
                 // cadastrar funcionario
+                    System.out.println();
                 break;
 
                 case '3':
                 //acessar classe admin para da permisão 
                 // remover funcionario
+                    System.out.println();
+                break;
+
+                case '4':
+                    System.out.println("Tchau!");
                 break;
 
                 default:
                     System.out.println("Opção Inválida, Tente Novamente");
                 break;
             }
-        }while(escolha !=4);   
+        }while(escolha !='4');   
+
+        in.close();
     }
 
 
 
     public static void menuInicial(){
-        System.out.println("Digite a opção desejada");
+        System.out.println("Digite a opção desejada: ");
         System.out.println("1 para fazer login de funcionário");
         System.out.println("2 adicionar novo funcionário");
         System.out.println("3 remover funcionário");

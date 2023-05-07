@@ -1,12 +1,12 @@
 package TipoPessoa;
 
-
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Cliente extends Pessoa {
     private int diasDeHospedagem;
-    private int diaDoCheckIn;
-    private int diaDoCheckOut;
+    private Calendar diaDoCheckIn;
+    private Calendar diaDoCheckOut;
     private boolean tipoCama;//true=casal, false=solteiro
     private double valorInicial;
     private int chave;
@@ -16,7 +16,7 @@ public class Cliente extends Pessoa {
    
 
 
-    public Cliente(String nome, String cpf, String celular, int diasDeHospedagem, int diaDoCheckIn,
+    public Cliente(String nome, String cpf, String celular, int diasDeHospedagem, Calendar diaDoCheckIn,
         boolean tipoCama, double valorInicial , int chave, boolean extras) {
         super(nome, cpf, celular);
         this.diasDeHospedagem = diasDeHospedagem;
@@ -38,19 +38,21 @@ public class Cliente extends Pessoa {
         return this.diasDeHospedagem;
     }
 
-    public int getDiaCheckIn(){
+    public Calendar getDiaCheckIn(){
         return this.diaDoCheckIn;
     }
 
-    public int diaDoCheckOut(){
-        return this.diaDoCheckIn +  this.diasDeHospedagem;
+    public Calendar diaDoCheckOut(){
+        Calendar data = new GregorianCalendar(this.diaDoCheckIn.get(Calendar.YEAR), this.diaDoCheckIn.get(Calendar.MONTH), this.diaDoCheckIn.get(Calendar.DAY_OF_MONTH));
+        data.add(Calendar.DAY_OF_MONTH, this.diasDeHospedagem);
+        return data;
     }
 
     public void setSituacao(){
         this.situacao = SituacaoEnum.HOSPEDE;
     }
 
-    public int getDiaDoCheckOut(){
+    public Calendar getDiaDoCheckOut(){
         return this.diaDoCheckOut;
     }
 
@@ -75,7 +77,11 @@ public class Cliente extends Pessoa {
 
     @Override
     public String toString(){
-        return "Cliente: " + this.nome + ", Quarto: " + this.chave + ", Dia do check-in: " + this.diaDoCheckIn + ", Dia do check-out: " + this.diaDoCheckOut + ", Situação: " + this.situacao;
+        return "Cliente: " + this.nome + ", Quarto: " + this.chave + ", Dia do check-in: " + dataString(this.diaDoCheckIn) + ", Dia do check-out: " + dataString(this.diaDoCheckOut) + ", Situação: " + this.situacao;
+    }
+
+    public String dataString(Calendar data){
+        return data.get(Calendar.DAY_OF_MONTH) + "/" + (data.get(Calendar.MONTH) + 1) + "/" + data.get(Calendar.YEAR);
     }
     
 }
