@@ -47,7 +47,7 @@ public class SistemaDeQuartos {
             return -2;
         }
 
-        int chave = calculoDaChave(i + 1, j + 1); // Criação da chave do quarto
+        int chave = calculoDaChave(i, j); // Criação da chave do quarto
         quantQuartos[i][j].setDisponivel(false);
         numeroQuartosOcupados++;
 
@@ -55,6 +55,18 @@ public class SistemaDeQuartos {
     }
 
     private int calculoDaChave(int i, int j){
-        return i * 100 + j;
+        return (i + 1) * 100 + (j + 1);
+    }
+
+    public void checkOutDoCliente(int chave){
+        this.quantQuartos[converterChaveI(chave)][converterChaveJ(chave)].setDisponivel(true);
+    }
+
+    private int converterChaveI(int chave){
+        return chave/100 - 1;
+    }
+
+    private int converterChaveJ(int chave){
+        return chave % 100 - 1;
     }
 }

@@ -56,6 +56,10 @@ public class Cliente extends Pessoa {
         return this.diaDoCheckOut;
     }
 
+    public int getChave(){ 
+        return this.chave;
+    }
+
     @Override
     public boolean equals(Object n){
         if(this == n){

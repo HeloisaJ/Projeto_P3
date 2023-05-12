@@ -87,7 +87,7 @@ public class Main {
                                     celular=in.nextLine();
                                     System.out.println("Quantidade de dias de hospedagem:");
                                     diasDeHospedagem=in.nextInt();in.nextLine();
-                                    System.out.println("Data do Check-In:");
+                                    System.out.println("Data do Check-in:");
                                     System.out.println("Ano: ");
                                     ano = in.nextInt(); in.nextLine(); 
 
@@ -146,7 +146,7 @@ public class Main {
                             break;
                             
                             case '2':
-                                System.out.println("Digite dados do cliente para  realização do Check-In");
+                                System.out.println("Digite dados do cliente para  realização do Check-in");
                                 System.out.println("Nome:");
                                 nome=in.nextLine();
                                 System.out.println("CPF:");
@@ -157,13 +157,13 @@ public class Main {
                             break;
 
                             case '3':
-                                System.out.println("Digite dados do cliente para realização do Check-Out");
+                                System.out.println("Digite dados do cliente para realização do Check-out");
                                 System.out.println("Nome:");
                                 nome=in.nextLine();
                                 System.out.println("CPF:");
                                 cpf=in.nextLine();
                                 cl=new Cliente(nome, cpf);
-                                sistema.checkOut(cl);
+                                sistema.checkOut(cl, sq);
                                 System.out.println();
                             break;
 
@@ -245,9 +245,9 @@ public class Main {
         System.out.println("Digite a opção desejada");
         System.out.println("1: Reservar quarto");
         System.out.println("2: Fazer Check-in");
-        System.out.println("3: Fazer Checkout");
-        System.out.println("4: Exibir Clientes Para Check-In de Hoje ");
-        System.out.println("5: Exibir Clientes Para CheckOut de Hoje");
+        System.out.println("3: Fazer Check-out");
+        System.out.println("4: Exibir Clientes Para Check-in de Hoje ");
+        System.out.println("5: Exibir Clientes Para Check-out de Hoje");
         System.out.println("6: Exibir os Clientes Hospedados");
         System.out.println("7: Exibir Todos Clientes");
         System.out.println("8: Voltar para tela inicial");
