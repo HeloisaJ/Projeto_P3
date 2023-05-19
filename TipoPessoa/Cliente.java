@@ -3,6 +3,7 @@ package TipoPessoa;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import Exceptions.CelularException;
 import Exceptions.CpfException;
 import Exceptions.DataException;
 import Exceptions.NomeException;
@@ -18,30 +19,21 @@ public class Cliente extends Pessoa {
     private double valorDosExtras; // Uma cama extra
    
 
-    public Cliente(String nome, String cpf, String celular, int diasDeHospedagem, Calendar diaDoCheckIn, boolean tipoCama, int chave, char extras) throws CpfException, NomeException, DataException, OpcaoExtrasException{
+    public Cliente(String nome, String cpf, String celular, int diasDeHospedagem, Calendar diaDoCheckIn, boolean tipoCama, int chave, char extras) throws CpfException, NomeException, DataException, OpcaoExtrasException, CelularException{
         super(nome, cpf, celular);
-
-        String valido =  validarData(diaDoCheckIn);
-
-        if(valido != null){
-            throw new DataException(valido);
-        }
-
+        validarData(diaDoCheckIn);
         this.diasDeHospedagem = diasDeHospedagem;
         this.diaDoCheckIn = diaDoCheckIn;
-        valido = validarData(diaDoCheckOut());
-
-        if(valido != null){
-            throw new DataException(valido);
-        }
-       
+        validarData(diaDoCheckOut());
         this.diaDoCheckOut = diaDoCheckOut();
+
         if(tipoCama){
             this.valorInicial = 150;
         }
         else{
             this.valorInicial = 100;
-        }    
+        }  
+
         this.chave = chave;
         this.situacao = SituacaoEnum.RESERVA;
 
@@ -60,25 +52,30 @@ public class Cliente extends Pessoa {
         super(nome, cpf);
     }
 
-    public String validarData(Calendar data){
+    public void validarData(Calendar data) throws DataException{
         GregorianCalendar padrao = new GregorianCalendar();
-        if(data.get(Calendar.YEAR) < padrao.get(Calendar.YEAR)){
-            return "Ano inválido! O ano tem que ser maior ou igual ao ano atual.";
-        }
-        else if(data.get(Calendar.MONTH) < padrao.get(Calendar.MONTH) && data.get(Calendar.YEAR) == padrao.get(Calendar.YEAR)){
-            return "Mês inválido! Esse mês já passou, digite um outro mês.";
-        }
-        else if(data.get(Calendar.MONTH) + 1 == 2 && data.get(Calendar.DAY_OF_MONTH) > 29){
-            return "Dia inválido! Como o mês é fevereiro, digite um número menor que 30 para o dia.";
-        }
-        else if(data.get(Calendar.MONTH) + 1 == 2 && data.get(Calendar.DAY_OF_MONTH) == 29 && padrao.isLeapYear(data.get(Calendar.YEAR))){
-            return "Dia inválido! Como este ano não é bissexto, não existe dia 29 de fevereiro, digite um número menor que 29.";
-        }
-        else if(data.get(Calendar.DAY_OF_MONTH) < padrao.get(Calendar.DAY_OF_MONTH) && data.get(Calendar.MONTH) == padrao.get(Calendar.MONTH) && data.get(Calendar.YEAR) == padrao.get(Calendar.YEAR)){
-            return "Dia inválido! Esse dia já passou, digite um outro dia.";
-        }
+        int ano = data.get(Calendar.YEAR);
+        int mes = data.get(Calendar.MONTH) + 1;
+        int dia = data.get(Calendar.DAY_OF_MONTH);
 
-        return null;
+        if(ano < padrao.get(Calendar.YEAR)){
+            throw new DataException("Ano inválido! O ano tem que ser maior ou igual ao ano atual.");
+        }
+        else if(mes < padrao.get(Calendar.MONTH) + 1 && ano == padrao.get(Calendar.YEAR)){
+            throw new DataException("Mês inválido! Esse mês já passou, digite um outro mês.");
+        }
+        else if((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31){
+            throw new DataException("Dia inválido! Esse mês não tem dia 31.");
+        }
+        else if(mes == 2 && dia > 29){
+            throw new DataException( "Dia inválido! Como o mês é fevereiro, digite um número menor que 30 para o dia.");
+        }
+        else if(mes == 2 && dia == 29 && padrao.isLeapYear(ano)){
+            throw new DataException("Dia inválido! Como este ano não é bissexto, não existe dia 29 de fevereiro, digite um número menor que 29.");
+        }
+        else if(dia < padrao.get(Calendar.DAY_OF_MONTH) && mes == padrao.get(Calendar.MONTH) + 1 && ano == padrao.get(Calendar.YEAR)){
+            throw new DataException("Dia inválido! Esse dia já passou, digite um outro dia.");
+        }
     }
 
     public int getDiasDeHospedagem(){
@@ -137,7 +134,7 @@ public class Cliente extends Pessoa {
 
     @Override
     public String toString(){
-        return "Cliente: " + this.nome + ", Quarto: " + this.chave + ", Dia do check-in: " + dataString(this.diaDoCheckIn) + ", Dia do check-out: " + dataString(this.diaDoCheckOut) + ", Situação: " + this.situacao;
+        return "Cliente: " + this.nome + ", CPF: " + this.cpf + ", Celular: " + this.celular + ", Quarto: " + this.chave + ", Dia do check-in: " + dataString(this.diaDoCheckIn) + ", Dia do check-out: " + dataString(this.diaDoCheckOut) + ", Situação: " + this.situacao;
     }
 
     public String dataString(Calendar data){

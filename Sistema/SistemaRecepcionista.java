@@ -3,6 +3,7 @@ package Sistema;
 import java.util.Calendar;
 import java.util.LinkedList;
 
+import Exceptions.CelularException;
 import Exceptions.CpfException;
 import Exceptions.DataException;
 import Exceptions.NomeException;
@@ -21,7 +22,7 @@ public class SistemaRecepcionista { // Precisa de mais tratamentos para exceptio
         this.clientesHospedados = new LinkedList<Cliente>();
     }
 
-    public void reserva(String nome, String cpf, String celular, int diasHospedagem, Calendar diaDoCheckIn, boolean tipoCama, int chave, char extras) throws CpfException, NomeException, DataException, OpcaoExtrasException{
+    public void reserva(String nome, String cpf, String celular, int diasHospedagem, Calendar diaDoCheckIn, boolean tipoCama, int chave, char extras) throws CpfException, NomeException, DataException, OpcaoExtrasException, CelularException{
         Cliente novo = new Cliente(nome, cpf, celular, diasHospedagem, diaDoCheckIn, tipoCama, chave, extras);
         this.clientesParaCheckIn.addLast(novo);
         System.out.println("Novo cliente adicionado com sucesso !");
@@ -67,7 +68,8 @@ public class SistemaRecepcionista { // Precisa de mais tratamentos para exceptio
     }
 
     private int buscarCliente(Cliente n, LinkedList<Cliente> lista) throws IndexOutOfBoundsException{
-        for(int i = 0; i < lista.size(); i++){
+        int size = lista.size();
+        for(int i = 0; i < size; i++){
             if(lista.get(i).equals(n)){
                 return i;
             }
@@ -76,12 +78,13 @@ public class SistemaRecepcionista { // Precisa de mais tratamentos para exceptio
     }
 
     public void exibirClientesParaCheckInHoje() throws IndexOutOfBoundsException{
-        if(this.clientesParaCheckIn.size() == 0){
-            throw new IndexOutOfBoundsException("Nenhum cliente para realizar o check in no momento.");
+        int size = this.clientesParaCheckIn.size();
+        if(size == 0){
+            throw new IndexOutOfBoundsException("Nenhum cliente para realizar o check-in no momento.");
         }
         else{
             boolean vazio = true;
-            for(int i = 0; i < this.clientesParaCheckIn.size(); i++){ 
+            for(int i = 0; i < size; i++){ 
                 if(compareData(this.clientesParaCheckIn.get(i).getDiaCheckIn())){ 
                     System.out.println(this.clientesParaCheckIn.get(i));
                     vazio = false;
@@ -104,12 +107,13 @@ public class SistemaRecepcionista { // Precisa de mais tratamentos para exceptio
     }
 
     public void exibirClientesParaCheckOutHoje() throws IndexOutOfBoundsException{ 
-        if(this.clientesHospedados.size() == 0){
+        int size = this.clientesHospedados.size();
+        if(size == 0){
             throw new IndexOutOfBoundsException("Nenhum cliente hospedado no momento.");
         }
         else{
             boolean vazio = true;
-            for(int i = 0; i < this.clientesHospedados.size(); i++){
+            for(int i = 0; i < size; i++){
                 if(compareData(this.clientesHospedados.get(i).getDiaDoCheckOut())){ 
                     System.out.println(this.clientesHospedados.get(i));
                     vazio = false;
@@ -128,13 +132,15 @@ public class SistemaRecepcionista { // Precisa de mais tratamentos para exceptio
         }
         else{
             percorrerLista(this.clientesParaCheckIn);
+            System.out.println();
         }
         
         exibirClientesHospedados();
     }
 
     private void percorrerLista(LinkedList<Cliente> lista){
-        for(int i = 0; i < lista.size(); i++){
+        int size = lista.size();
+        for(int i = 0; i < size; i++){
             System.out.println(lista.get(i));
         }
     }

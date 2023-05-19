@@ -2,8 +2,10 @@ package Main;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Exceptions.CelularException;
 import Exceptions.CpfException;
 import Exceptions.DataException;
 import Exceptions.NomeException;
@@ -22,7 +24,7 @@ public class MenuAposLogin {
         String nome;
         String celular;
         Cliente cl;
-        char tipoquarto;
+        char tipoQuarto;
         Quarto q; 
         int diasDeHospedagem;
         int dia, mes, ano;
@@ -44,18 +46,23 @@ public class MenuAposLogin {
                         System.out.println("qual tipo de quarto deseja o cliente:");
                         System.out.println("1: casal");
                         System.out.println("2: solteiro");
-                        tipoquarto=in.next().charAt(0);in.nextLine();
-                        
-                        System.out.println("Deseja adicionar uma cama extra no quarto ? Digite S para sim ou N para não");
-                        extras = in.next().charAt(0);in.nextLine();
-                        extras = Character.toUpperCase(extras);
+                        tipoQuarto=in.next().charAt(0);in.nextLine();
 
-                        if(tipoquarto=='1'){
+                        while(tipoQuarto != '1' && tipoQuarto != '2'){ 
+                            System.out.println("Tipo do quarto inválido, digite 1 para casal ou 2 para solteiro: ");
+                            tipoQuarto=in.next().charAt(0);in.nextLine();
+                        }
+
+                        if(tipoQuarto=='1'){
                             tipoCama=true;
                         }
                         else{
                             tipoCama=false;
                         }
+
+                        System.out.println("Deseja adicionar uma cama extra no quarto ? Digite S para sim ou N para não");
+                        extras = in.next().charAt(0);in.nextLine();
+                        extras = Character.toUpperCase(extras);
 
                         q = new Quarto(tipoCama);
                         result = sq.buscarQuarto(q);
@@ -99,27 +106,15 @@ public class MenuAposLogin {
                             sistema.reserva(nome, cpf, celular, diasDeHospedagem, diaDoCheckIn, tipoCama, chave, extras);
                         }
                     } 
-                    catch(NomeException e){
+                    catch(NomeException | CpfException | CelularException | DataException | OpcaoExtrasException e){
                         System.out.println("Erro nos dados da reserva: " + e.getMessage());
                         sq.checkOutDoCliente(chave);
                     }
-                    catch (CpfException e) {
-                        System.out.println("Erro nos dados da reserva: " + e.getMessage());
+                    catch(InputMismatchException e){
+                        System.out.println("Erro nos dados da reserva: Dado inválido, provavelmente foi colocado uma letra ao invés de caracteres numéricos em alguma parte da reserva.");
                         sq.checkOutDoCliente(chave);
                     }
-                    catch(DataException e){
-                        System.out.println("Erro nos dados da reserva: " + e.getMessage());
-                        sq.checkOutDoCliente(chave);
-                    }
-                    catch(OpcaoExtrasException e){
-                        System.out.println("Erro nos dados da reserva: " + e.getMessage());
-                        sq.checkOutDoCliente(chave);
-                    }
-                    catch (IllegalArgumentException e) {
-                        System.out.println("Erro nos dados da reserva: " + e.getMessage());
-                        sq.checkOutDoCliente(chave);
-                    }
-                        System.out.println();
+                    System.out.println();
                 break;
                 
                 case '2':
@@ -132,14 +127,8 @@ public class MenuAposLogin {
                         cl=new Cliente(nome, cpf);
                         sistema.checkIn(cl);
                     } 
-                    catch(NomeException e){
+                    catch(NomeException | CpfException | IllegalArgumentException e){
                         System.out.println("Erro nos dados da reserva: " + e.getMessage());
-                    }
-                    catch (CpfException e) {
-                        System.out.println("Erro nos dados do check-in: " + e.getMessage());
-                    }
-                    catch (IllegalArgumentException e) {
-                        System.out.println("Erro nos dados do check-in: " + e.getMessage());
                     }
                     catch (IndexOutOfBoundsException e) {
                         System.out.println("Erro inesperado no sistema de check-out, tente novamente.");
@@ -157,14 +146,8 @@ public class MenuAposLogin {
                         cl=new Cliente(nome, cpf);
                         sistema.checkOut(cl, sq); 
                     }
-                    catch(NomeException e){
+                    catch(NomeException | CpfException | IllegalArgumentException e){
                         System.out.println("Erro nos dados da reserva: " + e.getMessage());
-                    }
-                    catch (CpfException e) {
-                        System.out.println("Erro nos dados do check-out: " + e.getMessage());
-                    }
-                    catch (IllegalArgumentException e) {
-                        System.out.println("Erro nos dados do check-out: " + e.getMessage());
                     }
                     catch (IndexOutOfBoundsException e) {
                         System.out.println("Erro inesperado no sistema de check-out, tente novamente.");
