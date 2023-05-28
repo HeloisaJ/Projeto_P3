@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Cliente.Cliente;
 import Exceptions.CelularException;
 import Exceptions.CpfException;
 import Exceptions.DataException;
@@ -13,11 +14,10 @@ import Exceptions.OpcaoExtrasException;
 import Quarto.Quarto;
 import Quarto.SistemaDeQuartos;
 import Sistema.SistemaRecepcionista;
-import TipoPessoa.Cliente;
 
 public class MenuAposLogin {
     
-    public static void Menu(SistemaDeQuartos sq, SistemaRecepcionista sistema, Scanner in){
+    public static void menu(SistemaDeQuartos sq, SistemaRecepcionista sistema, Scanner in){
 
         char escolha2;
         String cpf;

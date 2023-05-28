@@ -39,7 +39,7 @@ public class ListaFuncionarios {
             return -2;
         }
         for(int i = 0; i < size; i++){
-            if(funcionarios.get(i).equals(x)){ // preciso por aqui
+            if(funcionarios.get(i).equals(x)){ 
                 return i;
             }
         }
@@ -47,7 +47,7 @@ public class ListaFuncionarios {
     }
 
     public void removerFuncionario(String nome, String senha) throws NomeException, FuncionarioException, SenhaException{
-        Funcionario removido = new Funcionario(nome, senha); // Preciso ver isso com Pedro
+        Funcionario removido = new Funcionario(nome, senha); 
         int x = buscarFuncionario(removido);
         if(x == -2){
             throw new FuncionarioException("A lista de funcionários está vazia, não foi possível realizar esta ação.");

@@ -6,31 +6,23 @@ import Exceptions.SenhaException;
 import Exceptions.TurnoException;
 import TipoPessoa.Pessoa;
 
-public class Funcionario extends Pessoa{
+public class Funcionario extends Pessoa implements FuncionarioInterface{
 
     private String turno;
     private String senha;
     
     public Funcionario(String nome, String cpf, String celular, String turno, String senha) throws CpfException, NomeException, TurnoException, SenhaException, CelularException{
         super(nome, cpf, celular);
-        validarTurno(turno);
-        validarSenha(senha);
+        ValidacaoFuncionario.validarTurno(turno);
+        ValidacaoFuncionario.validarSenha(senha);
         this.turno = turno;
         this.senha = senha;
     }
 
     public Funcionario(String nome, String senha) throws NomeException, SenhaException{ //Relacionado a parte de login, criação de uma instância de funcionário para comparar com a lista de funcionários
         super(nome);
-        validarSenha(senha);
+        ValidacaoFuncionario.validarSenha(senha);
         this.senha = senha;
-    }
-
-    public String getSenha(){
-        return this.senha;
-    }
-
-    public String getTurno(){ 
-        return this.turno;
     }
 
     @Override
@@ -57,15 +49,4 @@ public class Funcionario extends Pessoa{
         return "Nome do Funcionário: " + this.nome + ", CPF: " + this.cpf + ", Celular: " + this.celular + ", Turno: " + this.turno;
     }
 
-    public void validarTurno(String turno) throws TurnoException{
-        if(!turno.equals("diurno") && !turno.equals("noturno")){
-            throw new TurnoException("Turno inválido! Digite diurno ou noturno no campo de turno.");
-        }
-    }
-
-    public void validarSenha(String senha) throws SenhaException{
-        if(senha.length() == 0){
-            throw new SenhaException("Senha inválida! Preencha o campo senha.");
-        }
-    }
 }

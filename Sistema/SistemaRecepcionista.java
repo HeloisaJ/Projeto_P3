@@ -3,19 +3,18 @@ package Sistema;
 import java.util.Calendar;
 import java.util.LinkedList;
 
+import Cliente.Cliente;
 import Exceptions.CelularException;
 import Exceptions.CpfException;
 import Exceptions.DataException;
 import Exceptions.NomeException;
 import Exceptions.OpcaoExtrasException;
 import Quarto.SistemaDeQuartos;
-import TipoPessoa.Cliente;
 
-public class SistemaRecepcionista { // Precisa de mais tratamentos para exceptions 
+public class SistemaRecepcionista { 
     
     private LinkedList<Cliente> clientesParaCheckIn;
     private LinkedList<Cliente> clientesHospedados;
-    private Calendar hoje;
 
     public SistemaRecepcionista(){
         this.clientesParaCheckIn = new LinkedList<Cliente>();
@@ -63,8 +62,8 @@ public class SistemaRecepcionista { // Precisa de mais tratamentos para exceptio
     }
 
     private boolean compareData(Calendar data){
-        this.hoje = Calendar.getInstance();
-        return data.get(Calendar.YEAR) == this.hoje.get(Calendar.YEAR) && data.get(Calendar.MONTH) == this.hoje.get(Calendar.MONTH) && data.get(Calendar.DAY_OF_MONTH) == this.hoje.get(Calendar.DAY_OF_MONTH);
+        Calendar hoje = Calendar.getInstance();
+        return data.get(Calendar.YEAR) == hoje.get(Calendar.YEAR) && data.get(Calendar.MONTH) == hoje.get(Calendar.MONTH) && data.get(Calendar.DAY_OF_MONTH) == hoje.get(Calendar.DAY_OF_MONTH);
     }
 
     private int buscarCliente(Cliente n, LinkedList<Cliente> lista) throws IndexOutOfBoundsException{

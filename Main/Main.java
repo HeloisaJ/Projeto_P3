@@ -40,7 +40,7 @@ public class Main {
                         System.out.println("Senha:");
                         senha=in.nextLine();
                         lista.loginFuncionario(nome, senha);
-                        MenuAposLogin.Menu(sq, sistema, in);
+                        MenuAposLogin.menu(sq, sistema, in);
                     } 
                     catch (NomeException | SenhaException e) {
                         System.out.println("Erro nos dados do login: " + e.getMessage());

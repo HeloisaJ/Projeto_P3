@@ -1,4 +1,4 @@
-package TipoPessoa;
+package Cliente;
 
 
 public enum SituacaoEnum {
