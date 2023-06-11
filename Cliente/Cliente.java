@@ -20,7 +20,7 @@ public class Cliente extends Pessoa implements ClienteInterface{
     private double valorDosExtras; // Uma cama extra
    
 
-    public Cliente(String nome, String cpf, String celular, int diasDeHospedagem, Calendar diaDoCheckIn, boolean tipoCama, int chave, char extras) throws CpfException, NomeException, DataException, OpcaoExtrasException, CelularException{
+    private Cliente(String nome, String cpf, String celular, int diasDeHospedagem, Calendar diaDoCheckIn, boolean tipoCama, int chave, char extras) throws CpfException, NomeException, DataException, OpcaoExtrasException, CelularException{
         super(nome, cpf, celular);
 
         ValidacaoCliente.validarDiasDeHospedagem(diasDeHospedagem);
@@ -116,4 +116,59 @@ public class Cliente extends Pessoa implements ClienteInterface{
         return data.get(Calendar.DAY_OF_MONTH) + "/" + (data.get(Calendar.MONTH) + 1) + "/" + data.get(Calendar.YEAR);
     }
     
+    public static final class ClienteBuilder{
+        
+        private String nome;
+        private String cpf;
+        private String celular;
+        private int diasDeHospedagem;
+        private Calendar diaDoCheckIn;
+        private boolean tipoCama;
+        private int chave;
+        private char extras;
+
+        public ClienteBuilder nome(String nome){
+            this.nome = nome;
+            return this;
+        }
+
+        public ClienteBuilder cpf(String cpf){
+            this.cpf = cpf;
+            return this;
+        }
+
+        public ClienteBuilder celular(String celular){
+            this.celular = celular;
+            return this;
+        }
+
+        public ClienteBuilder diasDeHospedagem(int diasDeHospedagem){
+            this.diasDeHospedagem = diasDeHospedagem;
+            return this;
+        }
+
+        public ClienteBuilder diaDoCheckIn(Calendar diaDoCheckIn){
+            this.diaDoCheckIn = diaDoCheckIn;
+            return this;
+        }
+
+        public ClienteBuilder tipoCama(boolean tipoCama){
+            this.tipoCama = tipoCama;
+            return this;
+        }
+
+        public ClienteBuilder chave(int chave){
+            this.chave = chave;
+            return this;
+        }
+
+        public ClienteBuilder extras(char extras){
+            this.extras = extras;
+            return this;
+        }
+
+        public Cliente build() throws CpfException, NomeException, DataException, OpcaoExtrasException, CelularException {
+            return new Cliente(nome, cpf, celular, diasDeHospedagem, diaDoCheckIn, tipoCama, chave, extras);
+        }
+    }
 }
